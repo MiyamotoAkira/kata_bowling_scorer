@@ -15,8 +15,9 @@ def get_score_from_line(line):
             score = score - get_value(line[i-1]) + get_value(roll)
             score += get_value(line[i+1]) if i < len(line) - 1 else 0
         elif roll == 'X':
-            score = score + get_value(roll)
-            score += get_value(line[i+1]) + get_value(line[i+2]) if i <len(line) - 2 else 0
+            if get_frame(line[:i+1]) <= 10:
+              score = score + get_value(roll)
+              score += get_value(line[i+1]) + get_value(line[i+2]) if i <len(line) - 2 else 0
         else:
             score += get_value(roll) if get_frame(line[:i+1]) <= 10  else 0
 

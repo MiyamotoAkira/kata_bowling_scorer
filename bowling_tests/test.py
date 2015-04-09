@@ -34,6 +34,8 @@ class BowlingTests(unittest.TestCase):
     ("-/5", 20),
     ("X54", 28),
     ("9-9-9-9-9-9-9-9-9-9/5",96),
+    ("------------------X56", 21),
+    ("------------------XXX", 30),
     ])
     def test_roll(self, line, expected_score):
         score = bowling_scorer.get_score_from_line(line)
