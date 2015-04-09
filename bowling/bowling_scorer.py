@@ -17,15 +17,21 @@ def get_value(roll):
 def get_score_from_line(line):
     score = 0
     for i, roll in enumerate(line):
-        if is_standard_roll(line, i): 
+        if is_standard_roll(line, i):
+            if roll == 'X':
+                score += 10
+            elif roll == '-':
+                score += 0
+            elif roll == "/":
+                score += 10 - get_value(line[i-1])
+            else:
+                score += int(roll)
+
+        if i > 0 and line[i-1] == '/':
             score += get_value(roll)
-            if roll == '/':
-                score -= get_spare_correction(line, i)
-                score += get_spare_bonus(line, i)
-            elif roll == 'X':
-                score += get_strike_bonus(line, i)
-        else:
-            break
+        elif (i > 0 and line[i-1] == 'X') or (i > 1 and line[i-2] == 'X'):
+            score += get_value(roll)
+
     return score
 
 def is_standard_roll(line, current_roll_number):
