@@ -1,3 +1,6 @@
+# Possible things to refactor
+# - lots of functions using line, introduce a line object?
+
 def get_value(roll):
     if roll == '-':
         return 0
@@ -30,10 +33,16 @@ def get_score_from_line(line):
     return score
 
 def is_part_of_spare_bonus(line, roll_number):
-    return roll_number > 0 and line[roll_number-1] == '/'
+    return get_previous_roll(line, roll_number) == '/'
 
 def is_part_of_strike_bonus(line, roll_number):
-    return (roll_number > 0 and line[roll_number-1] == 'X') or (roll_number > 1 and line[roll_number-2] == 'X')
+    return get_previous_roll(line, roll_number) == 'X' or get_roll_before_last(line, roll_number) == 'X'
+
+def get_previous_roll(line, roll_number):
+    return line[roll_number-1] if roll_number > 0 else None
+
+def get_roll_before_last(line, roll_number):
+    return roll_number > 1 and line[roll_number-2]
 
 def is_standard_roll(line, current_roll_number):
     return get_frame(line[:current_roll_number+1]) <= 10
