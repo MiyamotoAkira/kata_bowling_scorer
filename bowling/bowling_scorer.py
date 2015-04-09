@@ -8,19 +8,23 @@ def get_value(roll):
     else:
         return int(roll)
 
+
+# 1. Passes tests
+# 2. Minimizes duplication
+# 3. Describes intent (clarity)
+# 4. Simple
+
 def get_score_from_line(line):
     score = 0
     for i, roll in enumerate(line):
+        if get_frame(line[:i+1]) <= 10:
+            score += get_value(roll)
         if roll == '/':
-            score = score - get_value(line[i-1]) + get_value(roll)
-            score += get_value(line[i+1]) if i < len(line) - 1 else 0
+            score -= get_value(line[i-1])
+            score += get_value(line[i+1]) 
         elif roll == 'X':
             if get_frame(line[:i+1]) <= 10:
-              score = score + get_value(roll)
-              score += get_value(line[i+1]) + get_value(line[i+2]) if i <len(line) - 2 else 0
-        else:
-            score += get_value(roll) if get_frame(line[:i+1]) <= 10  else 0
-
+              score += get_value(line[i+1]) + get_value(line[i+2])
     return score
 
 def get_frame(line):
