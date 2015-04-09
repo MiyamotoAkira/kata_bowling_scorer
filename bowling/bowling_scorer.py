@@ -27,12 +27,19 @@ def get_score_from_line(line):
             else:
                 score += int(roll)
 
-        if i > 0 and line[i-1] == '/':
+        if is_part_of_spare_bonus(line, i):
             score += get_value(roll)
-        elif (i > 0 and line[i-1] == 'X') or (i > 1 and line[i-2] == 'X'):
+        
+        if is_part_of_strike_bonus(line, i):
             score += get_value(roll)
 
     return score
+
+def is_part_of_spare_bonus(line, roll_number):
+    return roll_number > 0 and line[roll_number-1] == '/'
+
+def is_part_of_strike_bonus(line, roll_number):
+    return (roll_number > 0 and line[roll_number-1] == 'X') or (roll_number > 1 and line[roll_number-2] == 'X')
 
 def is_standard_roll(line, current_roll_number):
     return get_frame(line[:current_roll_number+1]) <= 10
