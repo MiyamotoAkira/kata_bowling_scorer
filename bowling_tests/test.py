@@ -32,11 +32,21 @@ class BowlingTests(unittest.TestCase):
     ("-/", 10),
     ("9-9-9-9-9-9-9-9-9-9-",90),
     ("-/5", 20),
+    ("X54", 28),
+#    ("9-9-9-9-9-9-9-9-9-9/5",96),
     ])
     def test_roll(self, line, expected_score):
         score = bowling_scorer.get_score_from_line(line)
         self.assertEqual(expected_score, score)
 
 
+    @parameterized.expand([
+    ("", 0),
+    ("X", 1),
+    ("12", 1)
+    ])
+    def test_frame_counter(self, line, expected_frame):
+        frame_count = bowling_scorer.get_frame(line)
+        self.assertEqual(expected_frame, frame_count)
 
 
