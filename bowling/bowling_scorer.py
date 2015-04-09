@@ -18,7 +18,7 @@ def get_score_from_line(line):
             score = score + get_value(roll)
             score += get_value(line[i+1]) + get_value(line[i+2]) if i <len(line) - 2 else 0
         else:
-            score += get_value(roll)
+            score += get_value(roll) if get_frame(line[:i+1]) <= 10  else 0
 
     return score
 
@@ -30,9 +30,9 @@ def get_frame(line):
             current_frame += 1
         else:
             if half_frame:
-                current_frame += 1
                 half_frame = False
             else:
+                current_frame += 1
                 half_frame = True
         
     return current_frame 

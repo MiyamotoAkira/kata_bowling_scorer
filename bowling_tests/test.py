@@ -33,7 +33,7 @@ class BowlingTests(unittest.TestCase):
     ("9-9-9-9-9-9-9-9-9-9-",90),
     ("-/5", 20),
     ("X54", 28),
-#    ("9-9-9-9-9-9-9-9-9-9/5",96),
+    ("9-9-9-9-9-9-9-9-9-9/5",96),
     ])
     def test_roll(self, line, expected_score):
         score = bowling_scorer.get_score_from_line(line)
@@ -43,7 +43,11 @@ class BowlingTests(unittest.TestCase):
     @parameterized.expand([
     ("", 0),
     ("X", 1),
-    ("12", 1)
+    ("12", 1),
+    ("123", 2),
+    ("12345", 3),
+    ("1234X5", 4),
+    ("9-9-9-9-9-9-9-9-9-9/5",11),
     ])
     def test_frame_counter(self, line, expected_frame):
         frame_count = bowling_scorer.get_frame(line)
