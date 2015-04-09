@@ -38,17 +38,6 @@ def is_part_of_strike_bonus(line, roll_number):
 def is_standard_roll(line, current_roll_number):
     return get_frame(line[:current_roll_number+1]) <= 10
 
-def get_spare_correction(line, current_roll_number):
-    return get_value(line[current_roll_number-1])
-
-
-def get_spare_bonus(line, current_roll_number):
-    return get_value(line[current_roll_number+1]) 
-
-def get_strike_bonus(line, current_roll_number):
-    return get_value(line[current_roll_number+1]) + get_value(line[current_roll_number+2])
-
-
 def get_frame(line):
     current_frame = 0
     half_frame = False
