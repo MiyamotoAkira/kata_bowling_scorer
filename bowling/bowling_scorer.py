@@ -3,8 +3,6 @@ def get_value(roll):
         return 0
     elif roll == 'X':
         return 10
-    elif roll == '/':
-        return 10
     else:
         return int(roll)
 
@@ -17,15 +15,11 @@ def get_value(roll):
 def get_score_from_line(line):
     score = 0
     for i, roll in enumerate(line):
+        if roll == "/":
+            roll = 10 - get_value(line[i-1])
+        
         if is_standard_roll(line, i):
-            if roll == 'X':
-                score += 10
-            elif roll == '-':
-                score += 0
-            elif roll == "/":
-                score += 10 - get_value(line[i-1])
-            else:
-                score += int(roll)
+            score += get_value(roll)
 
         if is_part_of_spare_bonus(line, i):
             score += get_value(roll)
